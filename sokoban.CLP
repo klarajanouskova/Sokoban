@@ -128,7 +128,7 @@
   (not (exists (sokoban ? ? ? level ?level boxes $? deposits ? $?rest2 ?bx =(- ?by 1) $?)))
   (test (< ?level ?depth))
   =>
-  (assert (sokoban ?sx (- ?sy 1} pushBottom level (+ ?level 1) boxes $?rest1 ?bx (- ?by 1) deposits $?rest2))
+  (assert (sokoban ?sx (- ?sy 1) pushBottom level (+ ?level 1) boxes $?rest1 ?bx (- ?by 1) deposits $?rest2))
 )
 
 
@@ -170,5 +170,5 @@
   (not (exists (sokoban ? ? ? level ?level boxes $? deposits ? $?rest2 ?bx =(+ ?by 1) $?)))
   (test (< ?level ?depth))
   =>
-  (assert (sokoban ?sx (+ ?sy 1} pushBottom level (+ ?level 1) boxes $?rest1 ?bx (+ ?by 1) deposits $?rest2))
+  (assert (sokoban ?sx (+ ?sy 1) pushBottom level (+ ?level 1) boxes $?rest1 ?bx (+ ?by 1) deposits $?rest2))
 )
