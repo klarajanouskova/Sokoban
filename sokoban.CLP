@@ -1,6 +1,6 @@
 (deffacts init
   (map 5 5)
-  (sokoban 2 0 none level 0 boxes 1 0 deposits 0 4 4)
+  (sokoban 2 0 none level 0 boxes b 1 0 deposits d 0 4 4)
   (obstacle 0 1)
   (max-depth 40)
 )
@@ -18,8 +18,8 @@
   (map ?width ?height)
   (test (< ?sx (- ?width 1)))
   (not (exists (obstacle =(+ ?sx 1) ?sy)))
-  (not (exists (sokoban ? ? ? level ?level boxes $?rest1 =(+ ?sx 1) ?sy $? deposits $?rest2)))
-  (not (exists (sokoban ? ? ? level ?level boxes $? deposits ? $?rest2 =(+ ?sx 1) ?sy $?)))
+  (not (exists (sokoban ? ? ? level ?level boxes $?rest1 b =(+ ?sx 1) ?sy $? deposits $?rest2)))
+  (not (exists (sokoban ? ? ? level ?level boxes $? deposits $? d ? $?rest2 =(+ ?sx 1) ?sy $?)))
   (test (< ?level ?depth))
   =>
   (assert (sokoban (+ ?sx 1) ?sy right level (+ ?level 1) $?rest))
@@ -33,15 +33,15 @@
 ;; We haven't finished the levels
 
 (defrule pushRight
-  (sokoban ?sx ?sy ?last level ?level boxes $?rest1 ?bx ?by deposits $?rest2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?rest1 b ?bx ?by $?rest2 deposits $?rest3)
   (test (eq ?bx (+ ?sx 1)))
   (test (eq ?by ?sy))
   (max-depth ?depth)
   (map ?width ?height)
   (test (< ?sx (- ?width 2)))
   (not (exists (obstacle =(+ ?bx 1) ?by)))
-  (not (exists (sokoban ? ? ? level ?level boxes $?rest1 =(+ ?bx 1) ?by $? deposits $?)))
-  (not (exists (sokoban ? ? ? level ?level boxes $? deposits ? $?rest2 =(+ ?bx 1) ?by $?)))
+  (not (exists (sokoban ? ? ? level ?level boxes $?rest1 b =(+ ?bx 1) ?by $?rest2 deposits $?)))
+  (not (exists (sokoban ? ? ? level ?level boxes $? deposits $? d ? $?rest3 =(+ ?bx 1) ?by $?)))
   (test (< ?level ?depth))
   =>
   (assert (sokoban (+ ?sx 1) ?sy pushRight level (+ ?level 1) boxes $?rest1 (+ ?bx 1) ?by deposits $?rest2))
