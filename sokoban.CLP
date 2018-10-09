@@ -47,8 +47,8 @@
   (map ?width ?height)
   (test (< ?sx (- ?width 2)))
   
-  (not (obstacle =(- ?sx 2) ?sy))
-  (not (sokoban ? ? ? level ?level boxes $? b =(+ ?bx 1) ?by $? deposits $?))
+  (not (obstacle =(+ ?sx 2) ?sy))
+  (not (sokoban ? ? ? level ?level boxes $? b =(+ ?sx 2) ?sy $? deposits $?))
   (test (not (member$ (create$ d =(+ ?sx 2) ?sy) $deposits)))
   
   (test (< ?level ?depth))
@@ -98,10 +98,10 @@
   
   (max-depth ?depth)
   (test (> ?sx 1))
-  
-  (not (obstacle =(- ?bx 1) ?by))
-  (test (not (member$ (create$ c =(- ?bx 2) ?by) $boxes)))
-  (test (not (member$ (create$ d =(- ?bx 2) ?by) $deposits)))
+
+  (not (obstacle =(- ?sx 2) ?sy))
+  (not (sokoban ? ? ? level ?level boxes $? b =(- ?sx 2) ?sy $? deposits $?))
+  (test (not (member$ (create$ d =(- ?sx 2) ?sy) $deposits)))
   
   (test (< ?level ?depth))
   
@@ -152,9 +152,9 @@
   (map ?width ?height)
   (test (< ?sy 2))
   
-  (not (obstacle ?bx =(- ?by 1)))
-  (test (not (member$ (create$ c ?sx =(- ?sy 1)) $boxes)))
-  (test (not (member$ (create$ d ?sx =(- ?sy 1)) $deposits)))
+  (not (obstacle ?sx =(- ?sy 2)))
+  (not (sokoban ? ? ? level ?level boxes $? b ?sx =(- ?sy 2) $? deposits $?))
+  (test (not (member$ (create$ d ?sx =(- ?sy 2)) $deposits)))
   
   (test (< ?level ?depth))
   
@@ -206,9 +206,9 @@
   (map ?width ?height)
   (test (< ?sy (- ?height 2)))
   
-  (not (obstacle ?bx =(+ ?by 1)))
-  (test (not (member$ (create$ c ?sx =(+ ?sy 1)) $boxes)))
-  (test (not (member$ (create$ d ?sx =(+ ?sy 1)) $deposits)))
+  (not (obstacle ?sx =(+ ?sy 2)))
+  (not (sokoban ? ? ? level ?level boxes $? b ?sx =(+ ?sy 2) $? deposits $?))
+  (test (not (member$ (create$ d ?sx =(+ ?sy 2)) $deposits)))
   
   (test (< ?level ?depth))
   
@@ -217,3 +217,7 @@
   (assert (sokoban ?sx (+ ?sy 1) pushBottom level (+ ?level 1) boxes $?boxes1 b ?bx (+ ?by 1) $?boxes2 deposits $?deposits))
 
 )
+
+;; Requirements:
+;; All deposits are full
+
