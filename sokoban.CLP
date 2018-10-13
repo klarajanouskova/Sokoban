@@ -39,13 +39,13 @@
   (test (< ?sx (- ?width 1)))
 
   (not (obstacle =(+ ?sx 1) ?sy))
-  (not (member$ (create$ b (+ ?sx 1) ?sy) $?boxes))
-  (not (member$ (create$ d (+ ?sx 1) ?sy) $?deposits))
+  (not (sokoban $? b =(+ ?sx 1) ?sy $?))
+  (not (sokoban $? d =(+ ?sx 1) ?sy $?))
   
   (test (< ?level ?depth))
   
   =>
-  (assert (sokoban (+ ?sx 1) ?sy right level (+ ?level 1) $?))
+  (assert (sokoban (+ ?sx 1) ?sy right level (+ ?level 1) boxes $?boxes deposits $?deposits))
 )
 
 
@@ -67,7 +67,7 @@
   
   (not (obstacle =(+ ?sx 2) ?sy))
   (not (sokoban ? ? ? level ?level boxes $?boxes1 b =(+ ?sx 2) ?sy $?boxes2 deposits $?))
-  (not (member$ (create$ d =(+ ?sx 2) ?sy) $deposits))
+  (not (sokoban $? d =(+ ?sx 2) ?sy $?))
   
   (test (< ?level ?depth))
   
@@ -92,14 +92,14 @@
   (test (> ?sx 0))
   
   (not (obstacle =(- ?sx 1) ?sy))
-  (not (member$ (create$ b =(- ?sx 1) ?by) $boxes))
-  (not (member$ (create$ d =(- ?sx 1) ?sy) $deposits))
+  (not (sokoban $? b =(- ?sx 1) ?by $?))
+  (not (sokoban $? d =(- ?sx 1) ?sy $?))
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban (- ?sx 1) ?sy left level (+ ?level 1) $?))
+  (assert (sokoban (- ?sx 1) ?sy left level (+ ?level 1) boxes $?boxes deposits $?deposits))
 
 )
 
@@ -122,7 +122,7 @@
 
   (not (obstacle =(- ?sx 2) ?sy))
   (not (sokoban ? ? ? level ?level boxes $?boxes1 b =(- ?sx 2) ?sy $?boxes2 deposits $?))
-  (not (member$ (create$ d =(- ?sx 2) ?sy) $deposits))
+  (not (sokoban $? d =(- ?sx 2) ?sy $?))
   
   (test (< ?level ?depth))
   
@@ -148,14 +148,14 @@
   (test (> ?sy 0))
   
   (not (obstacle ?sx =(- ?sy 1)))
-  (not (member$ (create$ b ?sx =(- ?sy 1)) $boxes))
-  (not (member$ (create$ d ?sx =(- ?sy 1)) $deposits))
+  (not (sokoban $? b ?sx =(- ?sy 1) $?))
+  (not (sokoban $? d ?sx =(- ?sy 1) $?))
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban ?sx (- ?sy 1) left level (+ ?level 1) $?))
+  (assert (sokoban ?sx (- ?sy 1) left level (+ ?level 1) boxes $?boxes deposits $?deposits))
 
 )
 
@@ -179,7 +179,7 @@
   
   (not (obstacle ?sx =(- ?sy 2)))
   (not (sokoban ? ? ? level ?level boxes $?boxes1 b ?sx =(- ?sy 2) $?boxes2 deposits $?))
-  (not (member$ (create$ d ?sx =(- ?sy 2)) $deposits))
+  (not (sokoban $? d ?sx =(- ?sy 2) $?))
   
   (test (< ?level ?depth))
   
@@ -205,14 +205,14 @@
   (test (< ?sy (- ?height 1)))
   
   (not (obstacle ?sx =(+ ?sy 1)))
-  (not (member$ (create$ c ?sx =(+ ?sy 1)) $boxes))
-  (not (member$ (create$ d ?sx =(+ ?sy 1)) $deposits))
+  (not (sokoban $? c ?sx =(+ ?sy 1) $?))
+  (not (sokoban $? d ?sx =(+ ?sy 1) $?))
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban ?sx (+ ?sy 1) bottom level (+ ?level 1) $?))
+  (assert (sokoban ?sx (+ ?sy 1) bottom level (+ ?level 1) boxes $?boxes deposits $?deposits))
 
 )
 
@@ -236,7 +236,7 @@
   
   (not (obstacle ?sx =(+ ?sy 2)))
   (not (sokoban ? ? ? level ?level boxes $?boxes1 b ?sx =(+ ?sy 2) $?boxes2 deposits $?))
-  (not (member$ (create$ d ?sx =(+ ?sy 2)) $deposits)))
+  (not (sokoban $? d ?sx =(+ ?sy 2) $?))
   
   (test (< ?level ?depth))
   
