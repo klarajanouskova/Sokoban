@@ -2,9 +2,9 @@
 
   ; ----- INIT MAP -----
 (deffunction init_map ()
-  (assert(map 1 6))
-  (assert(sokoban 0 5 none level 0 boxes b 0 3 deposits))
-  ;(assert(obstacle 1 0))
+  (assert(map 6 1))
+  (assert(sokoban 5 0 none level 0 boxes b 4 0 deposits d 3 0 0))
+  ;(assert(obstacle 0 3))
  ) 
 
 ; ----- INIT -----
@@ -185,7 +185,7 @@
   
   =>
   
-  (assert (sokoban ?sx (- ?sy 1) pushBottom level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits))
+  (assert (sokoban ?sx (- ?sy 1) pushTop level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits))
 
 )
 
@@ -205,7 +205,7 @@
   (test (< ?sy (- ?height 1)))
   
   (not (obstacle ?sx =(+ ?sy 1)))
-  (not (sokoban $? c ?sx =(+ ?sy 1) $?))
+  (not (sokoban $? b ?sx =(+ ?sy 1) $?))
   (not (sokoban $? d ?sx =(+ ?sy 1) $?))
   
   (test (< ?level ?depth))
