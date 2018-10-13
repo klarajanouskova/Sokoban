@@ -2,9 +2,9 @@
 
   ; ----- INIT MAP -----
 (deffunction init_map ()
-  (assert(map 5 5))
-  (assert(sokoban 2 0 none level 0 boxes b 1 0 deposits d 4 4 0))
-  (assert(obstacle 0 1))
+  (assert(map 4 1))
+  (assert(sokoban 0 0 none level 0 boxes b 1 0 deposits))
+  (assert(obstacle 2 0))
  ) 
 
 ; ----- INIT -----
@@ -66,14 +66,14 @@
   (test (< ?sx (- ?width 2)))
   
   (not (obstacle =(+ ?sx 2) ?sy))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b =(+ ?sx 2) ?sy $?boxes2 deposits $?))
+  (not (sokoban $? b =(+ ?sx 2) ?sy $?))
   (not (sokoban $? d =(+ ?sx 2) ?sy $?))
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban (+ ?sx 1) ?sy pushRight level (+ ?level 1) boxes $?boxes1 (+ ?bx 1) ?by $?boxes2 deposits $?deposits))
+  (assert (sokoban (+ ?sx 1) ?sy pushRight level (+ ?level 1) boxes $?boxes1 b (+ ?bx 1) ?by $?boxes2 deposits $?deposits))
 
 )
 
@@ -121,7 +121,7 @@
   (test (> ?sx 1))
 
   (not (obstacle =(- ?sx 2) ?sy))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b =(- ?sx 2) ?sy $?boxes2 deposits $?))
+  (not (sokoban $? b =(- ?sx 2) ?sy $?))
   (not (sokoban $? d =(- ?sx 2) ?sy $?))
   
   (test (< ?level ?depth))
@@ -178,7 +178,7 @@
   (test (< ?sy 2))
   
   (not (obstacle ?sx =(- ?sy 2)))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b ?sx =(- ?sy 2) $?boxes2 deposits $?))
+  (not (sokoban $? b ?sx =(- ?sy 2) $?))
   (not (sokoban $? d ?sx =(- ?sy 2) $?))
   
   (test (< ?level ?depth))
@@ -235,7 +235,7 @@
   (test (< ?sy (- ?height 2)))
   
   (not (obstacle ?sx =(+ ?sy 2)))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b ?sx =(+ ?sy 2) $?boxes2 deposits $?))
+  (not (sokoban $? b ?sx =(+ ?sy 2) $?))
   (not (sokoban $? d ?sx =(+ ?sy 2) $?))
   
   (test (< ?level ?depth))
