@@ -2,9 +2,9 @@
 
   ; ----- INIT MAP -----
 (deffunction init_map ()
-  (assert(map 4 1))
-  (assert(sokoban 0 0 none level 0 boxes b 1 0 deposits))
-  (assert(obstacle 2 0))
+  (assert(map 1 6))
+  (assert(sokoban 0 5 none level 0 boxes b 0 3 deposits))
+  ;(assert(obstacle 1 0))
  ) 
 
 ; ----- INIT -----
@@ -155,7 +155,7 @@
   
   =>
   
-  (assert (sokoban ?sx (- ?sy 1) left level (+ ?level 1) boxes $?boxes deposits $?deposits))
+  (assert (sokoban ?sx (- ?sy 1) top level (+ ?level 1) boxes $?boxes deposits $?deposits))
 
 )
 
@@ -175,7 +175,7 @@
   
   (max-depth ?depth)
   (map ?width ?height)
-  (test (< ?sy 2))
+  (test (> ?sy 2))
   
   (not (obstacle ?sx =(- ?sy 2)))
   (not (sokoban $? b ?sx =(- ?sy 2) $?))
@@ -218,7 +218,7 @@
 
 
 
-; ----- PUSHBOTTOM -----
+; ----- PUSH BOTTOM -----
 ;; Requirements:
 ;; There is a box under the Sokoban
 ;; The box is not in the last row
