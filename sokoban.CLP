@@ -3,11 +3,13 @@
 (defglobal ?*nod-gen* = 0)
 
   ; ----- INIT MAP -----
-(deffunction init_map ()
-  (assert(map 6 5))
-  (assert(sokoban 3 0 none level 0 boxes b 4 0 b 2 0 deposits d 5 0 0 d 1 0 0))
-  ;;(assert(sokoban 5 0 none level 0 boxes b 2 0 b 2 1 deposits d 1 0 0 d 1 1 0))
-  (assert(obstacle 0 3))
+(deffacts init_map 
+ (initial-fact)
+  (map 6 1)
+  (sokoban 0 0 none level 0 boxes b 1 0 b 3 0 deposits d 0 5 0 )
+  ;;(assert(sokoban 5 0 none level 0 boxes b 2 0 b 2 1 deposits d 0 1 0 d 0 1 1 ))
+  (obstacle 0 3)
+  (obstacle 1 3)
  ) 
 
 ; ----- INIT -----
@@ -22,9 +24,9 @@
  (if (= ?a 1)
     then    (set-strategy breadth)
 	else   (set-strategy depth))
-  (printout t " Exexute run to start the program. " crlf)  
+  (printout t " Execute run to start the program. " crlf)  
   (assert (max-depth ?prof))
-  (init_map)
+
  )
 
  ; ----- RIGHT-----
@@ -42,9 +44,9 @@
   (test (< ?sx (- ?width 1)))
 
   (not (obstacle =(+ ?sx 1) ?sy))
-  (not (sokoban $? b =(+ ?sx 1) ?sy $?))
-  (not (sokoban $? d =(+ ?sx 1) ?sy $?))
-  
+  (test (not (member$ (create$ c (+ ?sx 1) ?sy) $?boxes)))
+  (test (not (member$ (create$ d 0 (+ ?sx 1) ?sy) $?deposits)))
+  (test (not (member$ (create$ d 1 (+ ?sx 1) ?sy) $?deposits)))
   (test (< ?level ?depth))
   
   =>
@@ -68,8 +70,9 @@
   (test (> ?sx 0))
   
   (not (obstacle =(- ?sx 1) ?sy))
-  (not (sokoban $? b =(- ?sx 1) ?by $?))
-  (not (sokoban $? d =(- ?sx 1) ?sy $?))
+  (test (not (member$ (create$ c (- ?sx 1) ?sy) $?boxes)))
+  (test (not (member$ (create$ d 0 (- ?sx 1) ?sy) $?deposits)))
+  (test (not (member$ (create$ d 1 (- ?sx 1) ?sy) $?deposits)))
   
   (test (< ?level ?depth))
   
@@ -95,8 +98,9 @@
   (test (> ?sy 0))
   
   (not (obstacle ?sx =(- ?sy 1)))
-  (not (sokoban $? b ?sx =(- ?sy 1) $?))
-  (not (sokoban $? d ?sx =(- ?sy 1) $?))
+   (test (not (member$ (create$ c ?sx (- ?sy 1)) $?boxes)))
+  (test (not (member$ (create$ d 0 ?sx (- ?sy 1)) $?deposits)))
+  (test (not (member$ (create$ d 1 ?sx (- ?sy 1)) $?deposits)))
   
   (test (< ?level ?depth))
   
@@ -123,8 +127,9 @@
   (test (< ?sy (- ?height 1)))
   
   (not (obstacle ?sx =(+ ?sy 1)))
-  (not (sokoban $? b ?sx =(+ ?sy 1) $?))
-  (not (sokoban $? d ?sx =(+ ?sy 1) $?))
+  (test (not (member$ (create$ c ?sx (+ ?sy 1)) $?boxes)))
+  (test (not (member$ (create$ d 0 ?sx (+ ?sy 1)) $?deposits)))
+  (test (not (member$ (create$ d 1 ?sx (+ ?sy 1)) $?deposits)))
   
   (test (< ?level ?depth))
   
@@ -154,8 +159,10 @@
   (test (< ?sx (- ?width 2)))
   
   (not (obstacle =(+ ?sx 2) ?sy))
-  (not (sokoban $? b =(+ ?sx 2) ?sy $?))
-  (not (sokoban $? d =(+ ?sx 2) ?sy $?))
+  (test (not (member$ (create$ b (+ ?sx 2) ?sy) $?boxes1)))
+  (test (not (member$ (create$ b (+ ?sx 2) ?sy) $?boxes2)))
+  (test (not (member$ (create$ d 0 (+ ?sx 2) ?sy) $?deposits)))
+  (test (not (member$ (create$ d 1 (+ ?sx 2) ?sy) $?deposits)))
   
   (test (< ?level ?depth))
   
@@ -184,8 +191,10 @@
   (test (> ?sx 1))
 
   (not (obstacle =(- ?sx 2) ?sy))
-  (not (sokoban $? b =(- ?sx 2) ?sy $?))
-  (not (sokoban $? d =(- ?sx 2) ?sy $?))
+  (test (not (member$ (create$ b (- ?sx 2) ?sy) $?boxes1)))
+  (test (not (member$ (create$ b (- ?sx 2) ?sy) $?boxes2)))
+  (test (not (member$ (create$ d 0 (- ?sx 2) ?sy) $?deposits)))
+  (test (not (member$ (create$ d 1 (- ?sx 2) ?sy) $?deposits)))
   
   (test (< ?level ?depth))
   
@@ -215,9 +224,10 @@
   (test (> ?sy 2))
   
   (not (obstacle ?sx =(- ?sy 2)))
-  (not (sokoban $? b ?sx =(- ?sy 2) $?))
-  (not (sokoban $? d ?sx =(- ?sy 2) $?))
-  
+   (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes1)))
+   (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes2)))
+   (test (not (member$ (create$ d 0 ?sx (- ?sy 2)) $?deposits)))
+   (test (not (member$ (create$ d 1 ?sx (- ?sy 2)) $?deposits)))
   (test (< ?level ?depth))
   
   =>
@@ -246,8 +256,10 @@
   (test (< ?sy (- ?height 2)))
   
   (not (obstacle ?sx =(+ ?sy 2)))
-  (not (sokoban $? b ?sx =(+ ?sy 2) $?))
-  (not (sokoban $? d ?sx =(+ ?sy 2) $?))
+   (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes1)))
+   (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes2)))
+  (test (not (member$ (create$ d 0 ?sx (+ ?sy 2)) $?deposits)))
+  (test (not (member$ (create$ d 1 ?sx (+ ?sy 2)) $?deposits)))
   
   (test (< ?level ?depth))
   
@@ -267,7 +279,7 @@
 ;; We haven't finished the levels
 
 (defrule storeRight
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?dx ?dy ?do $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx (+ ?sx 1)))
   (test (eq ?by ?sy))
   
@@ -276,8 +288,9 @@
   (test (< ?sx (- ?width 2)))
   
   (not (obstacle =(+ ?sx 2) ?sy))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b =(+ ?sx 2) ?sy $?boxes2 deposits $?))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d =(+ ?sx 2) ?sy 0 $?deposits2)
+  (test (not (member$ (create$ b (+ ?sx 2) ?sy) $?boxes1)))
+  (test (not (member$ (create$ b (+ ?sx 2) ?sy) $?boxes2)))
+  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 =(+ ?sx 2) ?sy $?deposits2)
   
   (test (< ?level ?depth))
   
@@ -298,7 +311,7 @@
 ;; We haven't finished the levels
 
 (defrule storeLeft
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?dx ?dy ?do $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx (- ?sx 1)))
   (test (eq ?by ?sy))
   
@@ -306,8 +319,9 @@
   (test (> ?sx 1))
   
   (not (obstacle =(- ?sx 2) ?sy))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b =(- ?sx 2) ?sy $?boxes2 deposits $?))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d =(- ?sx 2) ?sy 0 $?deposits2)
+  (test (not (member$ (create$ b (- ?sx 2) ?sy) $?boxes1)))
+  (test (not (member$ (create$ b (- ?sx 2) ?sy) $?boxes2)))
+  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 =(- ?sx 2) ?sy $?deposits2)
   
   (test (< ?level ?depth))
   
@@ -328,7 +342,7 @@
 ;; We haven't finished the levels
 
 (defrule storeTop
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?dx ?dy ?do $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (+ ?sy 1)))
   
@@ -336,8 +350,9 @@
   (test (> ?sy 2))
   
   (not (obstacle ?sx =(- ?sy 2)))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b ?sx =(- ?sy 2) $?boxes2 deposits $?))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d ?sx =(- ?sy 2) 0 $?deposits2)
+  (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes1)))
+  (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes2)))
+  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 ?sx =(- ?sy 2) $?deposits2)
   
   (test (< ?level ?depth))
   
@@ -358,7 +373,7 @@
 ;; We haven't finished the levels
 
 (defrule storeBottom
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?dx ?dy ?do $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (+ ?sy 1)))
   
@@ -367,8 +382,9 @@
   (test (< ?sy (- ?height 2)))
   
   (not (obstacle ?sx =(+ ?sy 2)))
-  (not (sokoban ? ? ? level ?level boxes $?boxes1 b ?sx =(+ ?sy 2) $?boxes2 deposits $?))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d ?sx =(+ ?sy 2) 0 $?deposits2)
+  (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes1)))
+  (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes2)))
+  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 ?sx =(+ ?sy 2) $?deposits2)
   
   (test (< ?level ?depth))
   
@@ -387,8 +403,8 @@
 
 (defrule Solution
   (declare (salience 100))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d ?dx ?dy ?dc $?deposits2)
-  (not (sokoban ? ? ? level ?level boxes $?  deposits $?deposits1 d ?dx ?dy 0 $?deposits2))
+  (sokoban ?sx ?sy ? level ?level boxes $? deposits $?deposits)
+  (test (not (member$ (create$ d 0) $?deposits)))
   
   =>
 
