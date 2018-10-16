@@ -49,7 +49,7 @@
   (test (< ?sx (- ?width 1)))
 
   (not (obstacle =(+ ?sx 1) ?sy))
-  (test (not (member$ (create$ c (+ ?sx 1) ?sy) $?boxes)))
+  (test (not (member$ (create$ b (+ ?sx 1) ?sy) $?boxes)))
   (test (not (member$ (create$ d 0 (+ ?sx 1) ?sy) $?deposits)))
   (test (not (member$ (create$ d 1 (+ ?sx 1) ?sy) $?deposits)))
   (test (< ?level ?depth))
@@ -75,7 +75,7 @@
   (test (> ?sx 0))
   
   (not (obstacle =(- ?sx 1) ?sy))
-  (test (not (member$ (create$ c (- ?sx 1) ?sy) $?boxes)))
+  (test (not (member$ (create$ b (- ?sx 1) ?sy) $?boxes)))
   (test (not (member$ (create$ d 0 (- ?sx 1) ?sy) $?deposits)))
   (test (not (member$ (create$ d 1 (- ?sx 1) ?sy) $?deposits)))
   
@@ -103,7 +103,7 @@
   (test (> ?sy 0))
   
   (not (obstacle ?sx =(- ?sy 1)))
-   (test (not (member$ (create$ c ?sx (- ?sy 1)) $?boxes)))
+   (test (not (member$ (create$ b ?sx (- ?sy 1)) $?boxes)))
   (test (not (member$ (create$ d 0 ?sx (- ?sy 1)) $?deposits)))
   (test (not (member$ (create$ d 1 ?sx (- ?sy 1)) $?deposits)))
   
@@ -132,7 +132,7 @@
   (test (< ?sy (- ?height 1)))
   
   (not (obstacle ?sx =(+ ?sy 1)))
-  (test (not (member$ (create$ c ?sx (+ ?sy 1)) $?boxes)))
+  (test (not (member$ (create$ b ?sx (+ ?sy 1)) $?boxes)))
   (test (not (member$ (create$ d 0 ?sx (+ ?sy 1)) $?deposits)))
   (test (not (member$ (create$ d 1 ?sx (+ ?sy 1)) $?deposits)))
   
@@ -301,7 +301,7 @@
   
   =>
   
-  (assert (sokoban (+ ?sx 1) ?sy storeRight level (+ ?level 1) boxes $?boxes1 b (+ ?bx 1) ?by $?boxes2 deposits $?deposits1 d ?dx ?dy (+ ?do 1) $?deposits2))
+  (assert (sokoban (+ ?sx 1) ?sy storeRight level (+ ?level 1) boxes $?boxes1 b (+ ?bx 1) ?by $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
   (printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
@@ -332,7 +332,7 @@
   
   =>
   
-  (assert (sokoban (- ?sx 1) ?sy storeLeft level (+ ?level 1) boxes $?boxes1 b (- ?bx 1) ?by $?boxes2 deposits $?deposits1 d ?dx ?dy (+ ?do 1) $?deposits2))
+  (assert (sokoban (- ?sx 1) ?sy storeLeft level (+ ?level 1) boxes $?boxes1 b (- ?bx 1) ?by $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
   (printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
@@ -363,7 +363,7 @@
   
   =>
   
-  (assert (sokoban ?sx (- ?sy 1) storeTop level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits1 d ?dx ?dy (+ ?do 1) $?deposits2))
+  (assert (sokoban ?sx (- ?sy 1) storeTop level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
   (printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
@@ -395,7 +395,7 @@
   
   =>
   
-  (assert (sokoban ?sx (+ ?sy 1) storeBotton level (+ ?level 1) boxes $?boxes1 b ?bx (+ ?by 1) $?boxes2 deposits $?deposits1 d ?dx ?dy (+ ?do 1) $?deposits2))
+  (assert (sokoban ?sx (+ ?sy 1) storeBotton level (+ ?level 1) boxes $?boxes1 b ?bx (+ ?by 1) $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
   (printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
