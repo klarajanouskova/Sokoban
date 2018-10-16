@@ -5,11 +5,16 @@
   ; ----- INIT MAP -----
 (deffacts init_map 
  (initial-fact)
-  (map 6 1)
-  (sokoban 0 0 none level 0 boxes b 1 0 b 3 0 deposits d 0 5 0 )
-  ;;(assert(sokoban 5 0 none level 0 boxes b 2 0 b 2 1 deposits d 0 1 0 d 0 1 1 ))
-  (obstacle 0 3)
-  (obstacle 1 3)
+  (map 8 5)
+  (sokoban 0 3 none level 0 boxes b 1 1 b 2 3 b 5 1 deposits d 0 6 0 d 0 4 3 d 0 4 4 ))
+  (obstacle 0 2)
+  (obstacle 3 0)
+  (obstacle 3 2)
+  (obstacle 3 3)
+  (obstacle 3 4)
+  (obstacle 4 2)
+  (obstacle 7 2)
+
  ) 
 
 ; ----- INIT -----
