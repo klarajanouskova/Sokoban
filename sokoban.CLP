@@ -227,7 +227,7 @@
   
   (max-depth ?depth)
   (map ?width ?height)
-  (test (> ?sy 2))
+  (test (> ?sy 1))
   
   (not (obstacle ?sx =(- ?sy 2)))
    (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes1)))
@@ -350,10 +350,10 @@
 (defrule storeTop
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx ?sx))
-  (test (eq ?by (+ ?sy 1)))
+  (test (eq ?by (- ?sy 1)))
   
   (max-depth ?depth)
-  (test (> ?sy 2))
+  (test (> ?sy 1))
   
   (not (obstacle ?sx =(- ?sy 2)))
   (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes1)))
