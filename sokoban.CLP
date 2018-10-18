@@ -1,3 +1,4 @@
+
 (defglobal ?*nod-gen* = 0)
 
   ; ----- INIT MAP -----
