@@ -226,7 +226,6 @@
   (not (sokoban $? d ?bx ?by $?))
   
   (max-depth ?depth)
-  (map ?width ?height)
   (test (> ?sy 1))
   
   (not (obstacle ?sx =(- ?sy 2)))
@@ -288,6 +287,7 @@
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx (+ ?sx 1)))
   (test (eq ?by ?sy))
+  (not (sokoban $? d ?bx ?by $?))
   
   (max-depth ?depth)
   (map ?width ?height)
@@ -320,7 +320,8 @@
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx (- ?sx 1)))
   (test (eq ?by ?sy))
-  
+  (not (sokoban $? d ?bx ?by $?))
+
   (max-depth ?depth)
   (test (> ?sx 1))
   
@@ -351,7 +352,8 @@
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (- ?sy 1)))
-  
+  (not (sokoban $? d ?bx ?by $?))
+
   (max-depth ?depth)
   (test (> ?sy 1))
   
@@ -382,7 +384,8 @@
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (+ ?sy 1)))
-  
+  (not (sokoban $? d ?bx ?by $?))
+
   (max-depth ?depth)
   (map ?width ?height)
   (test (< ?sy (- ?height 2)))
