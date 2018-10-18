@@ -303,7 +303,7 @@
   =>
   
   (assert (sokoban (+ ?sx 1) ?sy storeRight level (+ ?level 1) boxes $?boxes1 b (+ ?bx 1) ?by $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
-  (printout t "Box stored at level " =(+ ?level 1) crlf)
+  ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
 
@@ -334,7 +334,7 @@
   =>
   
   (assert (sokoban (- ?sx 1) ?sy storeLeft level (+ ?level 1) boxes $?boxes1 b (- ?bx 1) ?by $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
-  (printout t "Box stored at level " =(+ ?level 1) crlf)
+  ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
 
@@ -365,7 +365,7 @@
   =>
   
   (assert (sokoban ?sx (- ?sy 1) storeTop level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
-  (printout t "Box stored at level " =(+ ?level 1) crlf)
+  ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
 
@@ -397,7 +397,7 @@
   =>
   
   (assert (sokoban ?sx (+ ?sy 1) storeBotton level (+ ?level 1) boxes $?boxes1 b ?bx (+ ?by 1) $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
-  (printout t "Box stored at level " =(+ ?level 1) crlf)
+  ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
 
