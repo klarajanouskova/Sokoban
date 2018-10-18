@@ -6,7 +6,8 @@
 (deffacts init_map 
  (initial-fact)
   (map 8 5)
-  (sokoban 0 3 none level 0 boxes b 1 1 b 2 3 b 5 1 deposits d 0 6 0 d 0 4 3 d 0 4 4 )
+  ;;(sokoban 0 3 none level 0 boxes b 1 1 b 2 3 b 5 1 deposits d 0 6 0 d 0 4 3 d 0 4 4 )
+  (sokoban 5 2 none level 0 boxes b 5 3 deposits d 0 5 4)
   (obstacle 0 2)
   (obstacle 3 0)
   (obstacle 3 2)
