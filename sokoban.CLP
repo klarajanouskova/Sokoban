@@ -1,13 +1,13 @@
 
 
-(defglobal ?*nod-gen* = 0)
+((defglobal ?*nod-gen* = 0)
 
   ; ----- INIT MAP -----
 (deffacts init_map 
  (initial-fact)
-  (map 8 5)
-  ;;(sokoban 0 3 none level 0 boxes b 1 1 b 2 3 b 5 1 deposits d 0 6 0 d 0 4 3 d 0 4 4 )
-  (sokoban 5 2 none level 0 boxes b 5 3 deposits d 0 5 4)
+   (map 8 5)
+  ;(sokoban 0 2 none level 0 boxes b 0 1 deposits d 0 0 0)
+  (sokoban 0 3 none level 0 boxes b 1 1 b 2 3 b 5 1 deposits d 0 6 0 d 0 4 3 d 0 4 4)
   (obstacle 0 2)
   (obstacle 3 0)
   (obstacle 3 2)
@@ -284,7 +284,7 @@
 ;; We haven't finished the levels
 
 (defrule storeRight
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 =(+ ?sx 2) ?sy $?deposits2)
   (test (eq ?bx (+ ?sx 1)))
   (test (eq ?by ?sy))
   (not (sokoban $? d ?bx ?by $?))
@@ -296,13 +296,12 @@
   (not (obstacle =(+ ?sx 2) ?sy))
   (test (not (member$ (create$ b (+ ?sx 2) ?sy) $?boxes1)))
   (test (not (member$ (create$ b (+ ?sx 2) ?sy) $?boxes2)))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 =(+ ?sx 2) ?sy $?deposits2)
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban (+ ?sx 1) ?sy storeRight level (+ ?level 1) boxes $?boxes1 b (+ ?bx 1) ?by $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
+  (assert (sokoban (+ ?sx 1) ?sy storeRight level (+ ?level 1) boxes $?boxes1 b (+ ?bx 1) ?by $?boxes2 deposits $?deposits1 d 1 =(+ ?sx 2) ?sy $?deposits2))
   ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
@@ -317,7 +316,7 @@
 ;; We haven't finished the levels
 
 (defrule storeLeft
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 =(- ?sx 2) ?sy $?deposits2)
   (test (eq ?bx (- ?sx 1)))
   (test (eq ?by ?sy))
   (not (sokoban $? d ?bx ?by $?))
@@ -328,13 +327,12 @@
   (not (obstacle =(- ?sx 2) ?sy))
   (test (not (member$ (create$ b (- ?sx 2) ?sy) $?boxes1)))
   (test (not (member$ (create$ b (- ?sx 2) ?sy) $?boxes2)))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 =(- ?sx 2) ?sy $?deposits2)
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban (- ?sx 1) ?sy storeLeft level (+ ?level 1) boxes $?boxes1 b (- ?bx 1) ?by $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
+  (assert (sokoban (- ?sx 1) ?sy storeLeft level (+ ?level 1) boxes $?boxes1 b (- ?bx 1) ?by $?boxes2 deposits $?deposits1 d 1 =(- ?sx 2) ?sy  $?deposits2))
   ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
@@ -349,7 +347,7 @@
 ;; We haven't finished the levels
 
 (defrule storeTop
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 ?sx =(- ?sy 2) $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (- ?sy 1)))
   (not (sokoban $? d ?bx ?by $?))
@@ -360,13 +358,12 @@
   (not (obstacle ?sx =(- ?sy 2)))
   (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes1)))
   (test (not (member$ (create$ b ?sx (- ?sy 2)) $?boxes2)))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 ?sx =(- ?sy 2) $?deposits2)
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban ?sx (- ?sy 1) storeTop level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
+  (assert (sokoban ?sx (- ?sy 1) storeTop level (+ ?level 1) boxes $?boxes1 b ?bx (- ?by 1) $?boxes2 deposits $?deposits1 d 1 ?sx =(- ?sy 2) $?deposits2))
   ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
@@ -381,7 +378,7 @@
 ;; We haven't finished the levels
 
 (defrule storeBottom
-  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d ?do ?dx ?dy $?deposits2)
+  (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 ?sx =(+ ?sy 2) $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (+ ?sy 1)))
   (not (sokoban $? d ?bx ?by $?))
@@ -392,14 +389,13 @@
   
   (not (obstacle ?sx =(+ ?sy 2)))
   (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes1)))
-  (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes2)))
-  (sokoban ? ? ? level ?level boxes $? deposits $?deposits1 d 0 ?sx =(+ ?sy 2) $?deposits2)
+  (test (not (member$ (create$ b ?sx (+ ?sy 2)) $?boxes2)))  
   
   (test (< ?level ?depth))
   
   =>
   
-  (assert (sokoban ?sx (+ ?sy 1) storeBotton level (+ ?level 1) boxes $?boxes1 b ?bx (+ ?by 1) $?boxes2 deposits $?deposits1 d (+ ?do 1) ?dx ?dy $?deposits2))
+  (assert (sokoban ?sx (+ ?sy 1) storeBotton level (+ ?level 1) boxes $?boxes1 b ?bx (+ ?by 1) $?boxes2 deposits $?deposits1 d 1 ?sx =(+ ?sy 2) $?deposits2))
   ;;(printout t "Box stored at level " =(+ ?level 1) crlf)
   (bind ?*nod-gen* (+ ?*nod-gen* 1))
 )
