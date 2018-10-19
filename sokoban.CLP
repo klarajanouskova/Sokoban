@@ -5,7 +5,6 @@
 (deffacts init_map 
  (initial-fact)
    (map 8 5)
-  ;(sokoban 0 2 none level 0 boxes b 0 1 deposits d 0 0 0)
   (sokoban 0 3 none level 0 boxes b 1 1 b 2 3 b 5 1 deposits d 0 6 0 d 0 4 3 d 0 4 4)
   (obstacle 0 2)
   (obstacle 3 0)
@@ -283,6 +282,7 @@
 ;; We haven't finished the levels
 
 (defrule storeRight
+  (declare (salience 50))
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 =(+ ?sx 2) ?sy $?deposits2)
   (test (eq ?bx (+ ?sx 1)))
   (test (eq ?by ?sy))
@@ -315,6 +315,7 @@
 ;; We haven't finished the levels
 
 (defrule storeLeft
+  (declare (salience 50))
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 =(- ?sx 2) ?sy $?deposits2)
   (test (eq ?bx (- ?sx 1)))
   (test (eq ?by ?sy))
@@ -346,6 +347,7 @@
 ;; We haven't finished the levels
 
 (defrule storeTop
+  (declare (salience 50))
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 ?sx =(- ?sy 2) $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (- ?sy 1)))
@@ -377,6 +379,7 @@
 ;; We haven't finished the levels
 
 (defrule storeBottom
+  (declare (salience 50))
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes1 b ?bx ?by $?boxes2 deposits $?deposits1 d 0 ?sx =(+ ?sy 2) $?deposits2)
   (test (eq ?bx ?sx))
   (test (eq ?by (+ ?sy 1)))
