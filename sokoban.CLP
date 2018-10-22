@@ -22,13 +22,16 @@
  (initial-fact)
 	=>
  (printout t "Maximum depth: " )
+ ;saves the value readed in prof.
  (bind ?prof (read))
  (printout t "Search strategy: " crlf "    1.- Breadth" crlf "    2.- Depth" crlf )
  (bind ?a (read))
+ ;If they choosen the first one, it set breadth strategy, else, it set depth.
  (if (= ?a 1)
     then    (set-strategy breadth)
 	else   (set-strategy depth))
   (printout t " Execute run to start the program. " crlf)  
+  ;Creates a fact
   (assert (max-depth ?prof))
 
  )
@@ -42,7 +45,7 @@
 (defrule right
   (sokoban ?sx ?sy ?last level ?level boxes $?boxes deposits $?deposits)
   (test (neq ?last left))
-
+	
   (max-depth ?depth)
   (map ?width ?height)
   (test (< ?sx (- ?width 1)))
